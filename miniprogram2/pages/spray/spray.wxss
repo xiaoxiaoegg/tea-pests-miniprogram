@@ -1,0 +1,99 @@
+/* pages/spray/spray.wxss — 施药登记样式（下拉选择 + 打药建议） */
+.subtitle {
+  color: #2E7D32;
+  font-size: 26rpx;
+  padding: 0 32rpx 8rpx;
+}
+
+.section-title {
+  color: #1B5E20;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 12rpx;
+}
+.sub-title {
+  color: #2E7D32;
+  font-size: 26rpx;
+  font-weight: bold;
+  margin: 20rpx 0 8rpx;
+}
+
+.tip-top { color: #2E7D32; font-size: 24rpx; line-height: 1.6; margin-bottom: 16rpx; }
+
+/* 表单字段 */
+.field { margin-bottom: 16rpx; }
+.field-label { display: block; color: #2E7D32; font-size: 26rpx; font-weight: bold; margin-bottom: 8rpx; }
+
+.picker {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100rpx;                 /* 与输入框统一高度 */
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  border: 2rpx solid #81C784;
+  border-radius: 12rpx;
+  background-color: #F1F8E9;
+  font-size: 30rpx;
+}
+.picker .picked { color: #1B5E20; font-weight: bold; }
+.picker .placeholder { color: #81C784; }
+.picker .arrow { color: #2E7D32; font-size: 32rpx; }
+
+/* input 组件有默认高度，只加 padding 会把文字裁掉一半 →
+   必须显式给 height + line-height，让文字垂直居中且完整显示 */
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #81C784;
+  border-radius: 12rpx;
+  background-color: #F1F8E9;
+  font-size: 30rpx;
+  color: #1B5E20;
+}
+
+/* 打药建议卡片（对应网页端 #sprayAdvice） */
+.advice {
+  background-color: #F1F8E9;
+  border-left: 8rpx solid #00897B;
+  border-radius: 12rpx;
+  padding: 20rpx;
+  margin: 8rpx 0 20rpx;
+}
+.advice-title { color: #1B5E20; font-size: 28rpx; font-weight: bold; margin-bottom: 8rpx; }
+.advice-meta { color: #00695C; font-size: 23rpx; line-height: 1.7; margin-bottom: 8rpx; }
+.advice-text { color: #1B5E20; font-size: 25rpx; line-height: 1.7; white-space: pre-wrap; }
+
+.ok { color: #2E7D32; font-size: 26rpx; margin-top: 12rpx; }
+.tip { color: #81C784; font-size: 22rpx; line-height: 1.6; margin-top: 12rpx; }
+
+/* 趋势 */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 2rpx dashed #C8E6C9;
+  font-size: 26rpx;
+  color: #1B5E20;
+}
+.stat-num { font-weight: bold; }
+.last { font-size: 24rpx; color: #1B5E20; }
+
+.bar-row { display: flex; align-items: center; padding: 10rpx 0; font-size: 24rpx; color: #1B5E20; }
+.bar-name { width: 130rpx; flex-shrink: 0; }
+.bar-wrap {
+  flex: 1;
+  height: 18rpx;
+  background-color: #E8F5E9;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin: 0 12rpx;
+}
+.bar { height: 100%; background-color: #00897B; border-radius: 10rpx; }
+
+.dist { color: #1B5E20; font-size: 24rpx; line-height: 1.7; }
+.empty-line { text-align: center; color: #81C784; font-size: 24rpx; padding: 24rpx 0; }

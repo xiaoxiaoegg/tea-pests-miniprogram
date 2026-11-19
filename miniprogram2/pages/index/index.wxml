@@ -1,0 +1,67 @@
+<!-- pages/index/index.wxml — 病虫害检测首页（对标网页端茶农端） -->
+<view class="page-title">茶安智检 · 茶农端</view>
+<view class="subtitle">拍照即诊 · 检测 → 问诊 → 开方 → 防治 → 复检</view>
+
+<!-- 检测来源 + 选图/选视频 -->
+<view class="card">
+  <view class="section-title">选择检测来源</view>
+  <view class="tabs">
+    <view class="tab {{source === 'image' ? 'active' : ''}}" data-source="image" bindtap="switchSource">图片</view>
+    <view class="tab {{source === 'video' ? 'active' : ''}}" data-source="video" bindtap="switchSource">视频</view>
+  </view>
+
+  <view class="preview" wx:if="{{mediaUrl}}">
+    <image wx:if="{{!isVideo}}" src="{{mediaUrl}}" mode="aspectFit" class="preview-img" />
+    <video wx:else src="{{mediaUrl}}" class="preview-img" object-fit="contain" show-center-play-btn />
+  </view>
+  <view class="preview preview-empty" wx:else>
+    <text class="preview-tip">{{source === 'video' ? '拍摄或选择一段茶园视频' : '拍摄或选择一张茶叶照片'}}</text>
+  </view>
+
+  <button class="btn-outline" bindtap="chooseMedia">
+    📷 {{source === 'video' ? '拍摄 / 相册选择视频' : '拍照 / 相册选择'}}
+  </button>
+  <button class="btn-primary" bindtap="startDetect" loading="{{detecting}}" disabled="{{!mediaUrl}}">
+    {{detecting ? '检测中…' : '开始检测'}}
+  </button>
+  <view class="tip">图片可直接调用相机拍摄；视频检测耗时较长（约 10–60 秒），请保持网络畅通</view>
+</view>
+
+<!-- 检测结果 -->
+<view class="card" wx:if="{{result}}">
+  <view class="section-title">检测结果</view>
+  <view class="result-summary">
+    <text class="badge">目标数 {{result.count}}</text>
+    <text class="badge">{{result.file_type === 'video' ? '视频' : '图片'}}</text>
+  </view>
+  <view class="sev-badge {{severityClass}}">危害等级：{{severityLevel}}</view>
+
+  <view class="det-item" wx:for="{{result.detections}}" wx:key="index">
+    <text class="det-name">{{item.cnName || item.class_name}}</text>
+    <text class="det-conf">置信度 {{item.confidencePercent}}%</text>
+  </view>
+  <view class="empty" wx:if="{{result.count === 0}}">未检测到病虫害目标</view>
+
+  <view class="section-title" style="margin-top: 24rpx;">标注结果</view>
+  <image wx:if="{{resultUrl && !resultIsVideo}}" src="{{resultUrl}}" mode="widthFix"
+         class="result-img" bindtap="previewResult" />
+  <video wx:elif="{{resultUrl}}" src="{{resultUrl}}" class="result-img"
+         object-fit="contain" show-center-play-btn />
+
+  <button class="btn-primary" bindtap="goAdvice" disabled="{{!result.record_id}}">
+    🌱 生成防治建议
+  </button>
+  <button class="btn-outline retest-btn" bindtap="retestRecheck">
+    🔁 防治后复拍（7-15 天后验证效果）
+  </button>
+</view>
+
+<!-- 错误提示 -->
+<view class="card error-card" wx:if="{{errMsg}}">
+  <text class="error-text">{{errMsg}}</text>
+  <view class="error-tips">
+    <text>1. 检测服务是否已启动</text>
+    <text>2. 手机与设备是否在同一网络</text>
+    <text>3. 检查网络连接后重试</text>
+  </view>
+</view>

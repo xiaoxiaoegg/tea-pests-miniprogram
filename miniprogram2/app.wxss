@@ -1,0 +1,64 @@
+/* app.wxss — 全局样式：与桌面端茶绿色系配色一致 */
+page {
+  background-color: #E8F5E9;
+  font-size: 28rpx;
+  color: #333;
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+}
+
+/* 白色卡片（对应桌面端的白色面板） */
+.card {
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: 24rpx;
+  margin: 20rpx;
+  box-shadow: 0 2rpx 8rpx rgba(46, 125, 50, 0.08);
+}
+
+/* 页面主标题（对应桌面端 #1B5E20 深绿大标题） */
+.page-title {
+  color: #1B5E20;
+  font-size: 40rpx;
+  font-weight: bold;
+  padding: 24rpx 32rpx 8rpx;
+}
+
+/* 主按钮（对应桌面端 #A5D6A7 按钮，按压 #81C784） */
+.btn-primary {
+  background-color: #A5D6A7;
+  color: #1B5E20;
+  font-weight: bold;
+  border-radius: 12rpx;
+  margin: 16rpx 0;
+}
+.btn-primary::after { border: none; }
+.btn-primary.button-hover { background-color: #81C784; }
+
+/* 次级按钮（描边风格） */
+.btn-outline {
+  background-color: #ffffff;
+  color: #2E7D32;
+  border: 2rpx solid #A5D6A7;
+  border-radius: 12rpx;
+  margin: 16rpx 0;
+}
+.btn-outline::after { border: none; }
+
+/* 标签徽章（绿色圆角小标签） */
+.badge {
+  display: inline-block;
+  background-color: #C8E6C9;
+  color: #1B5E20;
+  border-radius: 8rpx;
+  padding: 4rpx 16rpx;
+  font-size: 24rpx;
+  margin-right: 12rpx;
+}
+
+/* 空状态提示 */
+.empty {
+  text-align: center;
+  color: #81C784;
+  padding: 80rpx 0;
+  font-size: 28rpx;
+}

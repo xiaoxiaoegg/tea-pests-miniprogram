@@ -1,0 +1,92 @@
+<!-- pages/dashboard/dashboard.wxml — 茶园数据看板（对标网页端统计卡） -->
+<view class="page-title">📊 茶园数据看板</view>
+<view class="subtitle">病虫害预测 · 检测统计 · 危害等级分布 · 地块分布</view>
+
+<!-- 茶叶病虫害预测（植保测报三因子：检出趋势 + 季节规律 + 环境温湿度；数据来自服务器 /risk/latest） -->
+<view class="card">
+  <view class="section-title">🧪 茶叶病虫害预测</view>
+  <view class="tip" style="text-align:left;">测报引擎综合「摄像头检出趋势 + 季节规律 + 环境温湿度」自动研判，每小时更新</view>
+
+  <view class="empty-line" wx:if="{{fcErr}}">{{fcErr}}</view>
+
+  <block wx:if="{{forecast}}">
+    <view class="fc-head">报告时间 {{forecast.time}}<text wx:if="{{forecast.envText}}"> · 环境 {{forecast.envText}}</text></view>
+    <view class="fc-row" wx:for="{{forecast.pests}}" wx:key="pest">
+      <text class="fc-name">{{item.pest}}</text>
+      <text class="fc-badge" style="color:{{item.color}};background:{{item.bg}};border-color:{{item.color}}">{{item.level}}风险</text>
+      <text class="fc-sub">{{item.sub}}</text>
+    </view>
+    <view class="fc-advice" wx:if="{{forecast.advice}}">💡 {{forecast.advice}}</view>
+    <view class="fc-outlook" wx:if="{{forecast.outlook}}">⚠ {{forecast.outlook}}</view>
+    <view class="fc-src" wx:if="{{forecast.src}}">{{forecast.src}}</view>
+  </block>
+</view>
+
+<!-- 概览 -->
+<view class="card">
+  <view class="stat-row">
+    <text class="stat-label">今日检测</text>
+    <text class="stat-num">{{todayCount}}</text>
+  </view>
+  <view class="stat-row">
+    <text class="stat-label">累计记录</text>
+    <text class="stat-num">{{totalCount}}</text>
+  </view>
+  <button class="btn-outline" bindtap="loadStats" loading="{{loading}}">刷新统计</button>
+</view>
+
+<view class="card" wx:if="{{errMsg}}">
+  <text class="error-text">{{errMsg}}</text>
+  <view class="error-tips">
+    <text>1. 后端检测服务是否已启动</text>
+    <text>2. 手机与服务器是否在同一网络（或已切换公网地址）</text>
+  </view>
+</view>
+
+<!-- 危害等级分布 -->
+<view class="card" wx:if="{{!errMsg}}">
+  <view class="section-title">危害等级分布</view>
+  <view class="stat-row" wx:for="{{severities}}" wx:key="name">
+    <text class="stat-label">{{item.name}}</text>
+    <text class="stat-num">{{item.count}}</text>
+  </view>
+  <view class="empty-line" wx:if="{{severities.length === 0}}">暂无数据</view>
+</view>
+
+<!-- TOP 病虫害 -->
+<view class="card" wx:if="{{!errMsg}}">
+  <view class="section-title">TOP 病虫害</view>
+  <view class="bar-row" wx:for="{{topClasses}}" wx:key="name">
+    <text class="bar-name">{{item.name}}</text>
+    <view class="bar-wrap"><view class="bar" style="width:{{item.percent}}%"></view></view>
+    <text class="stat-num">{{item.count}}</text>
+  </view>
+  <view class="empty-line" wx:if="{{topClasses.length === 0}}">暂无数据</view>
+</view>
+
+<!-- 近 7 天趋势 -->
+<view class="card" wx:if="{{!errMsg}}">
+  <view class="section-title">近 7 天检测趋势</view>
+  <view class="bar-row" wx:for="{{trend}}" wx:key="date">
+    <text class="bar-name">{{item.date}}</text>
+    <view class="bar-wrap"><view class="bar bar-teal" style="width:{{item.percent}}%"></view></view>
+    <text class="stat-num">{{item.count}}</text>
+  </view>
+  <view class="empty-line" wx:if="{{trend.length === 0}}">暂无数据</view>
+</view>
+
+<!-- 地块分布 + 地图 -->
+<view class="card" wx:if="{{!errMsg}}">
+  <view class="section-title">茶园地块分布</view>
+  <view class="loc-item" wx:for="{{locations}}" wx:key="name">
+    <text>📍 {{item.name}}</text>
+    <text>{{item.count}} 次</text>
+  </view>
+  <view class="empty-line" wx:if="{{locations.length === 0}}">暂无带定位的地块记录</view>
+
+  <map wx:if="{{hasMap}}" class="map" latitude="{{mapCenter.latitude}}"
+       longitude="{{mapCenter.longitude}}" scale="11" markers="{{markers}}" show-location />
+  <view class="tip" wx:elif="{{locations.length}}">当前地块记录未带经纬度，无法在地图上标注</view>
+
+  <button class="btn-outline" bindtap="goHistory">查看防治记录 →</button>
+</view>

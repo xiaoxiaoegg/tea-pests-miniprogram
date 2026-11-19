@@ -1,0 +1,24 @@
+<!-- pages/assistant/assistant.wxml — 茶园 AI 助手（对话式问诊） -->
+<view class="page-title">🤖 茶园 AI 助手</view>
+<view class="subtitle">可问病害识别、防治方法、用药安全，也能查茶园真实检测数据</view>
+
+<view class="card chat-card">
+  <scroll-view class="chat" scroll-y scroll-into-view="{{scrollTo}}" scroll-with-animation>
+    <view wx:for="{{msgs}}" wx:key="id" id="m{{item.id}}"
+          class="msg-row {{item.role === 'user' ? 'right' : 'left'}}">
+      <view class="msg {{item.role}}">{{item.text}}</view>
+    </view>
+  </scroll-view>
+
+  <view class="quick">
+    <view class="chip" wx:for="{{quick}}" wx:key="*this"
+          data-q="{{item}}" bindtap="quickAsk">{{item}}</view>
+  </view>
+
+  <input class="chat-input" value="{{input}}" placeholder="输入你的问题…"
+         maxlength="500" confirm-type="send" bindinput="onInput" bindconfirm="send" />
+  <button class="btn-primary" bindtap="send" loading="{{busy}}" disabled="{{busy}}">
+    {{busy ? '思考中…' : '发送'}}
+  </button>
+  <view class="tip">AI 已常驻 GPU，一般几秒内回答；回答较慢时请稍等，不要重复发送</view>
+</view>

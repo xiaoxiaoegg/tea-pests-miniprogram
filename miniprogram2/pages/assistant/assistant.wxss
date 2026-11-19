@@ -1,0 +1,74 @@
+/* pages/assistant/assistant.wxss — 茶园 AI 助手样式 */
+.subtitle {
+  color: #2E7D32;
+  font-size: 26rpx;
+  padding: 0 32rpx 8rpx;
+}
+
+.chat-card { padding: 20rpx; }
+
+/* 对话区（对应网页端 #aiChat） */
+.chat {
+  height: 620rpx;
+  background-color: #F1F8E9;
+  border-radius: 12rpx;
+  padding: 16rpx;
+  box-sizing: border-box;
+  margin-bottom: 16rpx;
+}
+
+.msg-row { display: flex; margin-bottom: 16rpx; }
+.msg-row.left { justify-content: flex-start; }
+.msg-row.right { justify-content: flex-end; }
+
+.msg {
+  max-width: 82%;
+  padding: 16rpx 20rpx;
+  border-radius: 16rpx;
+  font-size: 28rpx;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.msg.bot {
+  background-color: #ffffff;
+  color: #1B5E20;
+  border: 2rpx solid #C8E6C9;
+}
+.msg.user {
+  background-color: #4CAF50;
+  color: #ffffff;
+}
+.msg.thinking {
+  background-color: #ffffff;
+  color: #81C784;
+  font-style: italic;
+  border: 2rpx solid #C8E6C9;
+}
+
+/* 快捷问题 */
+.quick { display: flex; flex-wrap: wrap; gap: 12rpx; margin-bottom: 16rpx; }
+.chip {
+  padding: 10rpx 18rpx;
+  background-color: #E8F5E9;
+  border: 2rpx solid #81C784;
+  border-radius: 30rpx;
+  font-size: 22rpx;
+  color: #2E7D32;
+}
+
+/* 输入框：input 组件默认高度较矮，显式高度 + 行高，避免 placeholder/文字被裁一半 */
+.chat-input {
+  width: 100%;
+  box-sizing: border-box;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #81C784;
+  border-radius: 12rpx;
+  font-size: 30rpx;
+  background-color: #F1F8E9;
+  color: #1B5E20;
+}
+
+.tip { color: #81C784; font-size: 22rpx; line-height: 1.6; margin-top: 12rpx; }

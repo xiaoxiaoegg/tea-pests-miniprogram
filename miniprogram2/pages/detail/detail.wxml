@@ -1,0 +1,52 @@
+<!-- pages/detail/detail.wxml — 检测详情 + 智能防治建议 -->
+<view class="page-title">检测详情 #{{record.id}}</view>
+
+<view class="card" wx:if="{{record}}">
+  <view class="record-meta">
+    <text class="badge">{{record.created_at}}</text>
+    <text class="badge">{{record.file_type === 'video' ? '视频' : '图片'}}</text>
+    <text class="badge">目标 {{record.count}}</text>
+    <text class="badge" wx:if="{{severityText}}">等级 {{severityText}}</text>
+  </view>
+
+  <!-- 标注结果图 -->
+  <image src="{{resultImageUrl}}" mode="widthFix" class="result-img"
+         bindtap="previewResult" data-url="{{resultImageUrl}}" />
+
+  <!-- 检测明细 -->
+  <view class="section-title">识别明细</view>
+  <view class="det-item" wx:for="{{record.detections}}" wx:key="index">
+    <text class="det-name">{{item.cnName || item.class_name}}</text>
+    <text class="det-conf">置信度 {{item.confidencePercent}}%</text>
+  </view>
+  <view class="empty" wx:if="{{record.count === 0}}">未检测到病虫害目标</view>
+</view>
+
+<!-- 防治建议 -->
+<view class="card" wx:if="{{record}}">
+  <view class="section-title">智能防治建议</view>
+
+  <!-- 已有建议：直接展示 -->
+  <view wx:if="{{record.advice}}">
+    <view class="advice-source" wx:if="{{record.advised_at}}">
+      生成时间：{{record.advised_at}}
+    </view>
+    <view class="advice-source" wx:if="{{adviceSourceName}}">
+      来源：{{adviceSourceName}}
+    </view>
+    <view class="advice-text">{{record.advice}}</view>
+    <button class="btn-outline" bindtap="refreshAdvice" loading="{{asking}}">
+      🔄 重新生成建议
+    </button>
+  </view>
+
+  <!-- 无建议：按钮触发智能体生成 -->
+  <view wx:else>
+    <view class="advice-tip">
+      由 AI 智能体根据检测结果自动生成针对性的防治建议
+    </view>
+    <button class="btn-primary" bindtap="getAdvice" loading="{{asking}}">
+      🌱 生成防治建议
+    </button>
+  </view>
+</view>

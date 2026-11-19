@@ -1,0 +1,82 @@
+<!-- pages/spray/spray.wxml — 施药登记（区域块 / 病害类型 下拉选择 + 打药建议） -->
+<view class="page-title">🌿 施药登记</view>
+<view class="subtitle">选区域块与病害类型，自动带出打药建议</view>
+
+<view class="card">
+  <view class="tip-top">登记时间按提交时刻自动记录到服务器，无需手填日期</view>
+
+  <!-- 区域块下拉 -->
+  <view class="field">
+    <text class="field-label">区域块</text>
+    <picker mode="selector" range="{{plots}}" value="{{plotPickerIndex}}"
+            bindchange="onPlotChange">
+      <view class="picker">
+        <text class="{{plotName ? 'picked' : 'placeholder'}}">{{plotName || '请选择区域块'}}</text>
+        <text class="arrow">▾</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 病害类型下拉 -->
+  <view class="field">
+    <text class="field-label">病害类型</text>
+    <picker mode="selector" range="{{diseases}}" value="{{diseasePickerIndex}}"
+            bindchange="onDiseaseChange">
+      <view class="picker">
+        <text class="{{diseaseName ? 'picked' : 'placeholder'}}">{{diseaseName || '请选择病害类型'}}</text>
+        <text class="arrow">▾</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 打药建议：选中病害后展示 -->
+  <view class="advice" wx:if="{{advice}}">
+    <view class="advice-title">打药建议 · {{diseaseName}}</view>
+    <view class="advice-meta">{{adviceMeta}}</view>
+    <view class="advice-text">{{advice.tip}}</view>
+  </view>
+
+  <!-- 药剂与用量 -->
+  <view class="field">
+    <text class="field-label">药剂名称</text>
+    <input class="input" value="{{pesticide}}" bindinput="onPesticideInput"
+           placeholder="选病害后自动填入，可修改" />
+  </view>
+  <view class="field">
+    <text class="field-label">用量 / 稀释倍数</text>
+    <input class="input" value="{{dose}}" bindinput="onDoseInput"
+           placeholder="选病害后自动填入，可修改" />
+  </view>
+
+  <button class="btn-outline" bindtap="fillAdvice" wx:if="{{advice}}">✓ 一键填入推荐药剂</button>
+  <button class="btn-primary" bindtap="submit" loading="{{submitting}}" disabled="{{submitting}}">
+    {{submitting ? '登记中…' : '提交登记'}}
+  </button>
+
+  <view class="ok" wx:if="{{okMsg}}">{{okMsg}}</view>
+  <view class="tip">建议与药剂为通用参考，实际以农药标签与当地植保部门指导为准</view>
+</view>
+
+<!-- 施药趋势 -->
+<view class="card">
+  <view class="section-title">施药趋势</view>
+  <button class="btn-outline" bindtap="toggleTrend">{{trendOpen ? '收起趋势' : '查看近 30 天趋势'}}</button>
+
+  <view wx:if="{{trendOpen && trend}}">
+    <view class="stat-row"><text>累计施药</text><text class="stat-num">{{trend.total}} 次</text></view>
+    <view class="stat-row"><text>最近一次</text><text class="last">{{trend.last}}</text></view>
+
+    <view class="sub-title">周度趋势（防治见效 → 递减）</view>
+    <view class="bar-row" wx:for="{{trend.weeks}}" wx:key="week">
+      <text class="bar-name">周({{item.week}})</text>
+      <view class="bar-wrap"><view class="bar" style="width:{{item.percent}}%"></view></view>
+      <text class="stat-num">{{item.count}}</text>
+    </view>
+
+    <view class="sub-title">地块 / 药剂分布</view>
+    <view class="dist">地块：{{trend.plotText}}</view>
+    <view class="dist">药剂：{{trend.pesticideText}}</view>
+  </view>
+
+  <view class="empty-line" wx:elif="{{trendOpen}}">趋势数据加载中或暂无数据</view>
+</view>

@@ -1,0 +1,47 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/dashboard/dashboard",
+    "pages/assistant/assistant",
+    "pages/spray/spray",
+    "pages/history/history",
+    "pages/detail/detail"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#A5D6A7",
+    "navigationBarTitleText": "茶安智检",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#E8F5E9"
+  },
+  "tabBar": {
+    "color": "#2E7D32",
+    "selectedColor": "#1B5E20",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "病虫害检测"
+      },
+      {
+        "pagePath": "pages/dashboard/dashboard",
+        "text": "数据看板"
+      },
+      {
+        "pagePath": "pages/assistant/assistant",
+        "text": "AI 助手"
+      },
+      {
+        "pagePath": "pages/spray/spray",
+        "text": "施药登记"
+      },
+      {
+        "pagePath": "pages/history/history",
+        "text": "防治记录"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

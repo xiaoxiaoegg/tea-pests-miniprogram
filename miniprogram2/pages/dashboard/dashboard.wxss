@@ -1,0 +1,80 @@
+/* pages/dashboard/dashboard.wxss — 数据看板样式（对标网页端统计条） */
+.subtitle {
+  color: #2E7D32;
+  font-size: 26rpx;
+  padding: 0 32rpx 8rpx;
+}
+
+.section-title {
+  color: #1B5E20;
+  font-size: 30rpx;
+  font-weight: bold;
+  margin-bottom: 12rpx;
+}
+
+/* 键值行 */
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12rpx 0;
+  border-bottom: 2rpx dashed #C8E6C9;
+  font-size: 26rpx;
+  color: #1B5E20;
+}
+.stat-label { color: #2E7D32; }
+.stat-num { font-weight: bold; min-width: 60rpx; text-align: right; }
+
+/* 条形统计行（TOP 病虫害 / 趋势） */
+.bar-row {
+  display: flex;
+  align-items: center;
+  padding: 10rpx 0;
+  font-size: 24rpx;
+  color: #1B5E20;
+}
+.bar-name { width: 170rpx; flex-shrink: 0; }
+.bar-wrap {
+  flex: 1;
+  height: 18rpx;
+  background-color: #E8F5E9;
+  border-radius: 10rpx;
+  overflow: hidden;
+  margin: 0 12rpx;
+}
+.bar { height: 100%; background-color: #4CAF50; border-radius: 10rpx; }
+.bar-teal { background-color: #00897B; }
+
+/* 地块行 */
+.loc-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12rpx 0;
+  border-bottom: 2rpx dashed #C8E6C9;
+  font-size: 26rpx;
+  color: #1B5E20;
+}
+
+.empty-line { text-align: center; color: #81C784; font-size: 24rpx; padding: 20rpx 0; }
+.tip { color: #81C784; font-size: 22rpx; line-height: 1.6; margin-top: 12rpx; }
+
+.map {
+  width: 100%;
+  height: 420rpx;
+  border-radius: 12rpx;
+  margin-top: 16rpx;
+  background-color: #C8E6C9;
+}
+
+.error-text { color: #C62828; font-weight: bold; }
+.error-tips { display: flex; flex-direction: column; margin-top: 8rpx; color: #666; font-size: 24rpx; }
+
+/* ===== 茶叶病虫害预测 ===== */
+.fc-head { font-size: 24rpx; color: #2E7D32; padding: 6rpx 0 12rpx; }
+.fc-row { display: flex; align-items: center; padding: 12rpx 0; border-bottom: 2rpx dashed #C8E6C9; font-size: 26rpx; }
+.fc-name { width: 150rpx; flex-shrink: 0; color: #1B5E20; font-weight: bold; }
+.fc-badge { font-size: 20rpx; padding: 2rpx 12rpx; border-radius: 20rpx; border: 2rpx solid; margin-right: 12rpx; flex-shrink: 0; }
+.fc-sub { flex: 1; font-size: 22rpx; color: #66BB6A; text-align: right; }
+.fc-advice { margin-top: 16rpx; background: #E8F5E9; border: 2rpx solid #A5D6A7; color: #1B5E20; border-radius: 12rpx; padding: 14rpx; font-size: 24rpx; line-height: 1.6; }
+.fc-outlook { margin-top: 12rpx; background: #FFF8E1; border: 2rpx solid #FFE082; color: #8D6E00; border-radius: 12rpx; padding: 14rpx; font-size: 24rpx; line-height: 1.6; }
+.fc-src { margin-top: 12rpx; font-size: 20rpx; color: #81C784; }

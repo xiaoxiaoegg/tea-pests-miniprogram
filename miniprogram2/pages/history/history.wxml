@@ -1,0 +1,35 @@
+<!-- pages/history/history.wxml — 检测记录与防治建议列表 -->
+<view class="page-title">防治记录</view>
+<view class="subtitle">点击记录查看智能体给出的防治建议</view>
+
+<view class="empty" wx:if="{{!loading && records.length === 0}}">
+  <text>暂无检测记录，去首页拍一张茶叶照片吧</text>
+</view>
+
+<view class="card record-card" wx:for="{{records}}" wx:key="id"
+      bindtap="goDetail" data-id="{{item.id}}">
+  <view class="record-head">
+    <text class="record-id">#{{item.id}}</text>
+    <text class="record-time">{{item.created_at}}</text>
+  </view>
+  <view class="record-body">
+    <image wx:if="{{item.result_url}}" src="{{item.thumbUrl}}" mode="aspectFill" class="record-thumb" />
+    <view class="record-info">
+      <view>
+        <text class="badge">目标 {{item.count}}</text>
+        <text class="badge">{{item.file_type === 'video' ? '视频' : '图片'}}</text>
+        <text class="badge" wx:if="{{item.severityText}}">等级 {{item.severityText}}</text>
+      </view>
+      <view class="advice-state {{item.advised_at ? 'done' : ''}}">
+        {{item.advised_at ? '✅ 已生成防治建议' : '⏳ 待生成建议'}}
+      </view>
+    </view>
+  </view>
+</view>
+
+<button class="btn-outline refresh-btn" bindtap="loadRecords" loading="{{loading}}">
+  刷新列表
+</button>
+<button class="btn-outline refresh-btn" wx:if="{{!loading && records.length === 0}}" bindtap="goDetect">
+  去检测 →
+</button>
